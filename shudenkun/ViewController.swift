@@ -85,9 +85,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         let userId = 1 // とりあえず決め打ち
         
-        // TODO: 実機でないと現在地を取得できないので、実機を使わざるを得ないのだが、そうするとlocalhostにつなぐのめんどい。。
-        // herokuにあげてもらわないとかなあ
-        Alamofire.request(.GET, "http://localhost:3000/api/last_train.json", parameters: ["user_id": userId])
+        // TODO: fake apiなので、後で本番apiに変える
+        Alamofire.request(.GET, "http://shudenkun-fake-api.herokuapp.com/api/last_train.json", parameters: [
+                "user_id": userId,
+                "depature": nearStation
+            ])
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { (_, _, json, error) in
@@ -95,14 +97,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     println("[ERROR] searchShudenTime: \(error)")
                     //self.loading.text = "Internet appears down!"
                 } else {
-                    println("[SUCCESS] searchShudenTime")
-                    println(json)
+                    let data = JSON(json!)
                     
-                    // 終電通知が必要か？
-                    let isNotificationRequired = true
-                    
-                    if isNotificationRequired {
-                        self.notifyShudenTime()
+                    // 終電時間
+                    if let shudenTime = data["depature_at"].string {
+                        println("[SUCCESS] shudenTime: \(shudenTime)")
+                        
+                        // 終電までの残り時間
+                        let remain_min = data["remain_min"].intValue
+                        
+                        // 終電通知が必要か？
+                        let isNotificationRequired = remain_min <= 60 ? true : false
+                        
+                        if isNotificationRequired {
+                            self.notifyShudenTime()
+                        } else {
+                            println("notification is not required")
+                        }
+                    } else {
+                        println("[ERROR] parse shuden time failed")
                     }
                 }
             }
