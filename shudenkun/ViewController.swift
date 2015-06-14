@@ -42,14 +42,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     // 位置情報取得失敗時
     //
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        NSLog("location manager Error")
+        NSLog("location manager Error \(error)")
     }
     
     //
     // 最寄り駅検索
     //
     func searchNearStation(longitude: CLLocationDegrees, latitude: CLLocationDegrees) {
-        NSLog("searching near station...")
+        NSLog("searching near station...long: \(longitude), lat: \(latitude)")
         
         Alamofire.request(.GET, "http://express.heartrails.com/api/json", parameters: [
                 "method": "getStations",
@@ -104,13 +104,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         println("[SUCCESS] shudenTime: \(shudenTime)")
                         
                         // 終電までの残り時間
-                        let remain_min = data["remain_min"].intValue
+                        let remainMin = data["remain_min"].intValue
                         
                         // 終電通知が必要か？
-                        let isNotificationRequired = remain_min <= 60 ? true : false
+                        // TODO コメント外す
+                        //let isNotificationRequired = remainMin <= 60 ? true : false
+                        let isNotificationRequired = true
                         
                         if isNotificationRequired {
-                            self.notifyShudenTime()
+                            self.notifyShudenTime(shudenTime, remainMin: remainMin)
                         } else {
                             println("notification is not required")
                         }
@@ -122,10 +124,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     //
-    // 終電までの時間を通知
+    // 終電発車時間と残り時間を通知
     //
-    func notifyShudenTime() {
+    func notifyShudenTime(shudenTime: String, remainMin: Int) {
         NSLog("notify shuden time...")
+        println(shudenTime)
+        println(remainMin)
+        
+        var notification = UILocalNotification()
+        notification.fireDate = NSDate()	// すぐに通知したいので現在時刻を取得
+        notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.alertBody = "終電が近づいてます！ 発車時間：\(shudenTime) 残り時間：\(remainMin)"
+        notification.alertAction = "OK"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
     }
     
     override func viewDidLoad() {

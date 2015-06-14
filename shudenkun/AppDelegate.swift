@@ -16,8 +16,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // ローカル通知センター認証
+        let notificationSettings = UIUserNotificationSettings(
+            forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge,
+            categories: nil
+        )
+        application.registerUserNotificationSettings(notificationSettings)
+        
         return true
+    }
+    
+    //
+    // ローカル通知センターからの通知を受け取った時
+    //
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if (application.applicationState == UIApplicationState.Active) {
+            // forgrand時
+            let alert = UIAlertView()
+            alert.title = "forgrand"
+            alert.message = notification.alertBody
+            alert.addButtonWithTitle(notification.alertAction!)
+            alert.show()
+        } else {
+            // background時
+            let alert = UIAlertView()
+            alert.title = "Background"
+            alert.message = notification.alertBody
+            alert.addButtonWithTitle(notification.alertAction!)
+            alert.show()
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {
