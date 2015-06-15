@@ -14,7 +14,23 @@ import CoreLocation
 class ViewController: UIViewController, CLLocationManagerDelegate {
     var lm: CLLocationManager! = nil
 
+    @IBOutlet weak var shudenIntervalSlider: UISlider!
+    @IBOutlet weak var shudenIntervalLabel: UILabel!
+    
+    @IBAction func shudenIntervalSliderValueChanged(sender: UISlider) {
+        let val = Int(sender.value)
+        shudenIntervalLabel.text = "\(val)"
+    }
+    
     @IBAction func onPushButtonClick(sender: AnyObject) {
+        NSLog("button clicked...")
+        
+        // NSUserDefaultsに終電通知までの時間を保存
+        let shudenInterval = Int(shudenIntervalSlider.value)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setInteger(shudenInterval, forKey:"SHUDEN_INTERVAL")
+        defaults.synchronize()
+        
         lm = CLLocationManager()
         lm.delegate = self
         //位置情報取得の可否。バックグラウンドで実行中の場合にもアプリが位置情報を利用することを許可する
@@ -107,9 +123,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         let remainMin = data["remain_min"].intValue
                         
                         // 終電通知が必要か？
-                        // TODO コメント外す
-                        //let isNotificationRequired = remainMin <= 60 ? true : false
-                        let isNotificationRequired = true
+                        let shudenInterval : Int! = NSUserDefaults.standardUserDefaults().integerForKey("SHUDEN_INTERVAL")
+                        let isNotificationRequired = remainMin <= shudenInterval ? true : false
                         
                         if isNotificationRequired {
                             self.notifyShudenTime(shudenTime, remainMin: remainMin)
