@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,20 +17,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="終電までの時間が" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nY-Lh-jiW">
-                                <rect key="frame" x="73" y="187" width="136" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分以内になったら通知する" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTQ-6B-7Jm">
+                                <rect key="frame" x="287" y="187" width="267" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="60" minValue="1" maxValue="1440" translatesAutoresizingMaskIntoConstraints="NO" id="TEN-er-n4E">
-                                <rect key="frame" x="71" y="135" width="422" height="31"/>
-                                <connections>
-                                    <action selector="shudenIntervalSliderValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="LW9-iQ-qXX"/>
-                                </connections>
-                            </slider>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DaD-0S-XcG">
-                                <rect key="frame" x="278" y="241" width="30" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="終電までの時間が" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nY-Lh-jiW">
+                                <rect key="frame" x="73" y="187" width="199" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="199" id="PMZ-nk-EvP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DaD-0S-XcG">
+                                <rect key="frame" x="285" y="241" width="30" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="変更">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -37,20 +42,37 @@
                                     <action selector="onPushButtonClick:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Ju5-I7-E72"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5WQ-d9-HkW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5WQ-d9-HkW">
                                 <rect key="frame" x="217" y="187" width="53" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="53" id="3JO-oJ-EMM"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="分以内になったら通知する" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTQ-6B-7Jm">
-                                <rect key="frame" x="278" y="187" width="204" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="60" minValue="1" maxValue="1440" translatesAutoresizingMaskIntoConstraints="NO" id="TEN-er-n4E">
+                                <rect key="frame" x="71" y="135" width="485" height="31"/>
+                                <connections>
+                                    <action selector="shudenIntervalSliderValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="LW9-iQ-qXX"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TEN-er-n4E" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="57" id="2CW-cz-dDS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TEN-er-n4E" secondAttribute="trailing" constant="30" id="375-zF-c4d"/>
+                            <constraint firstItem="TEN-er-n4E" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="115" id="DtM-Bk-kA0"/>
+                            <constraint firstItem="DaD-0S-XcG" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Frk-Eh-SgB"/>
+                            <constraint firstItem="5WQ-d9-HkW" firstAttribute="baseline" secondItem="gTQ-6B-7Jm" secondAttribute="baseline" id="Idi-vZ-ZM1"/>
+                            <constraint firstItem="gTQ-6B-7Jm" firstAttribute="trailing" secondItem="TEN-er-n4E" secondAttribute="trailing" id="Nyc-c3-GSv"/>
+                            <constraint firstItem="5WQ-d9-HkW" firstAttribute="top" secondItem="TEN-er-n4E" secondAttribute="bottom" constant="22" id="Uef-CB-pv1"/>
+                            <constraint firstItem="DaD-0S-XcG" firstAttribute="top" secondItem="gTQ-6B-7Jm" secondAttribute="bottom" constant="33" id="g1L-BO-jLo"/>
+                            <constraint firstItem="9nY-Lh-jiW" firstAttribute="leading" secondItem="TEN-er-n4E" secondAttribute="leading" id="gcR-8D-0GS"/>
+                            <constraint firstItem="5WQ-d9-HkW" firstAttribute="baseline" secondItem="9nY-Lh-jiW" secondAttribute="baseline" id="gfE-rN-kz2"/>
+                            <constraint firstItem="gTQ-6B-7Jm" firstAttribute="leading" secondItem="9nY-Lh-jiW" secondAttribute="trailing" constant="15" id="oEW-FD-J9z"/>
+                            <constraint firstItem="gTQ-6B-7Jm" firstAttribute="leading" secondItem="5WQ-d9-HkW" secondAttribute="trailing" constant="17" id="vUi-Qv-bNL"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="shudenIntervalLabel" destination="5WQ-d9-HkW" id="AIf-zt-lqG"/>
