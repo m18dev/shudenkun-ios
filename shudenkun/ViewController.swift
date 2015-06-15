@@ -127,7 +127,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         let isNotificationRequired = remainMin <= shudenInterval ? true : false
                         
                         if isNotificationRequired {
-                            self.notifyShudenTime(shudenTime, remainMin: remainMin)
+                            self.notifyShudenTime(shudenTime, remainMin: remainMin, nearStation: nearStation)
                         } else {
                             println("notification is not required")
                         }
@@ -141,7 +141,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //
     // 終電発車時間と残り時間を通知
     //
-    func notifyShudenTime(shudenTime: String, remainMin: Int) {
+    func notifyShudenTime(shudenTime: String, remainMin: Int, nearStation: String) {
         NSLog("notify shuden time...")
         println(shudenTime)
         println(remainMin)
@@ -149,7 +149,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var notification = UILocalNotification()
         notification.fireDate = NSDate()	// すぐに通知したいので現在時刻を取得
         notification.timeZone = NSTimeZone.defaultTimeZone()
-        notification.alertBody = "終電が近づいてます！ 発車時間：\(shudenTime) 残り時間：\(remainMin)"
+        notification.alertBody = "発車時間：\(shudenTime) 残り時間：\(remainMin)分 最寄駅:\(nearStation)"
         notification.alertAction = "OK"
         notification.soundName = UILocalNotificationDefaultSoundName
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)

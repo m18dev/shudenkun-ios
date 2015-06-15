@@ -34,14 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (application.applicationState == UIApplicationState.Active) {
             // forgrand時
             let alert = UIAlertView()
-            alert.title = "forgrand"
+            alert.title = "終電が近づいています！"
             alert.message = notification.alertBody
             alert.addButtonWithTitle(notification.alertAction!)
             alert.show()
         } else {
             // background時
             let alert = UIAlertView()
-            alert.title = "Background"
+            alert.title = "終電が近づいています！"
             alert.message = notification.alertBody
             alert.addButtonWithTitle(notification.alertAction!)
             alert.show()
