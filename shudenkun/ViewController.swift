@@ -22,6 +22,35 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         shudenIntervalLabel.text = "\(val)"
     }
     
+    //
+    // 終電逃した時の宿検索
+    //
+    @IBAction func onMissShudenButtonClick(sender: AnyObject) {
+        Alamofire.request(.GET, "https://app.rakuten.co.jp/services/api/Travel/SimpleHotelSearch/20131024", parameters: [
+                "applicationId": 1000220328079992423,
+                "format": "json",
+                "formatVersion": 2,
+                "latitude": 128440.51,
+                "longitude": 503172.21,
+                "searchRadius": 1,
+                "hits": 5
+            ])
+            .validate(statusCode: 200..<300)
+            .responseJSON { (_, _, json, error) in
+                if(error != nil) {
+                    println("[ERROR] search rakuten api: \(error)")
+                } else {
+                    let data = JSON(json!)
+                    
+                    // ホテル一覧
+                    for (index: String, hotel: JSON) in data["hotels"] {
+                        println(index)
+                        println(hotel)
+                    }
+                }
+            }
+    }
+    
     @IBAction func onPushButtonClick(sender: AnyObject) {
         NSLog("button clicked...")
         

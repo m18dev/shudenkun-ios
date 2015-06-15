@@ -32,6 +32,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="60" minValue="1" maxValue="1440" translatesAutoresizingMaskIntoConstraints="NO" id="TEN-er-n4E">
+                                <rect key="frame" x="71" y="135" width="485" height="31"/>
+                                <connections>
+                                    <action selector="shudenIntervalSliderValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="LW9-iQ-qXX"/>
+                                </connections>
+                            </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DaD-0S-XcG">
                                 <rect key="frame" x="285" y="241" width="30" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,12 +57,15 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="60" minValue="1" maxValue="1440" translatesAutoresizingMaskIntoConstraints="NO" id="TEN-er-n4E">
-                                <rect key="frame" x="71" y="135" width="485" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WNQ-e5-dmx">
+                                <rect key="frame" x="255" y="373" width="90" height="30"/>
+                                <state key="normal" title="終電逃した！">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="shudenIntervalSliderValueChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="LW9-iQ-qXX"/>
+                                    <action selector="onMissShudenButtonClick:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="3xj-lW-1kn"/>
                                 </connections>
-                            </slider>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
