@@ -14,6 +14,9 @@
 		7D50B89B1B2B83CD003C8156 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D50B89A1B2B83CD003C8156 /* Images.xcassets */; };
 		7D50B89E1B2B83CD003C8156 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D50B89C1B2B83CD003C8156 /* LaunchScreen.xib */; };
 		7D50B8AA1B2B83CD003C8156 /* shudenkunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50B8A91B2B83CD003C8156 /* shudenkunTests.swift */; };
+		7D75BE031B30DBED002EE66F /* HotelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75BE021B30DBED002EE66F /* HotelTableViewCell.swift */; };
+		7D75BE051B30DEEB002EE66F /* RakutenApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75BE041B30DEEB002EE66F /* RakutenApiController.swift */; };
+		7D75BE071B30E33C002EE66F /* Hotel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D75BE061B30E33C002EE66F /* Hotel.swift */; };
 		7DCAB8511B3056440027B0DD /* HotelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCAB8501B3056440027B0DD /* HotelTableViewController.swift */; };
 		8A3B16BF7F69AD2B61161A6B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF44EE465BB108463DA024F /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -43,6 +46,9 @@
 		7D50B8A31B2B83CD003C8156 /* shudenkunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shudenkunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D50B8A81B2B83CD003C8156 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D50B8A91B2B83CD003C8156 /* shudenkunTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shudenkunTests.swift; sourceTree = "<group>"; };
+		7D75BE021B30DBED002EE66F /* HotelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelTableViewCell.swift; sourceTree = "<group>"; };
+		7D75BE041B30DEEB002EE66F /* RakutenApiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RakutenApiController.swift; sourceTree = "<group>"; };
+		7D75BE061B30E33C002EE66F /* Hotel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hotel.swift; sourceTree = "<group>"; };
 		7DCAB8501B3056440027B0DD /* HotelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +105,9 @@
 				7D50B8901B2B83CD003C8156 /* AppDelegate.swift */,
 				7D50B8951B2B83CD003C8156 /* ViewController.swift */,
 				7DCAB8501B3056440027B0DD /* HotelTableViewController.swift */,
+				7D75BE021B30DBED002EE66F /* HotelTableViewCell.swift */,
+				7D75BE041B30DEEB002EE66F /* RakutenApiController.swift */,
+				7D75BE061B30E33C002EE66F /* Hotel.swift */,
 				7D50B8971B2B83CD003C8156 /* Main.storyboard */,
 				7D50B89A1B2B83CD003C8156 /* Images.xcassets */,
 				7D50B89C1B2B83CD003C8156 /* LaunchScreen.xib */,
@@ -297,6 +306,9 @@
 				7D50B8961B2B83CD003C8156 /* ViewController.swift in Sources */,
 				7D50B8911B2B83CD003C8156 /* AppDelegate.swift in Sources */,
 				7D50B8941B2B83CD003C8156 /* shudenkun.xcdatamodeld in Sources */,
+				7D75BE031B30DBED002EE66F /* HotelTableViewCell.swift in Sources */,
+				7D75BE051B30DEEB002EE66F /* RakutenApiController.swift in Sources */,
+				7D75BE071B30E33C002EE66F /* Hotel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

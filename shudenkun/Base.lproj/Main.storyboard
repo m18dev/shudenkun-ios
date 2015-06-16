@@ -159,18 +159,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="r7c-xa-3ZD">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HotelTableViewCell" rowHeight="100" id="r7c-xa-3ZD" customClass="HotelTableViewCell" customModule="shudenkun" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r7c-xa-3ZD" id="pzm-LF-vUl">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HcW-Lg-ich">
+                                            <rect key="frame" x="17" y="8" width="83" height="83"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kO2-dA-BcR">
+                                            <rect key="frame" x="118" y="8" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="hotelImageView" destination="HcW-Lg-ich" id="WzW-pJ-nWG"/>
+                                    <outlet property="hotelNameLabel" destination="kO2-dA-BcR" id="ElN-TQ-gQb"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="1sb-6K-syN" id="VJU-Ct-sOw"/>
-                            <outlet property="delegate" destination="1sb-6K-syN" id="nVB-Ot-Tcc"/>
+                            <outlet property="dataSource" destination="1sb-6K-syN" id="EPg-8e-J7X"/>
+                            <outlet property="delegate" destination="1sb-6K-syN" id="rp8-EO-2s4"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="hotelTableView" destination="hLN-VJ-6CL" id="JND-Ux-mcQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hHW-ON-XAV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

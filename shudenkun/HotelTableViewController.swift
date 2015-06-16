@@ -10,7 +10,12 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class HotelTableViewController: UITableViewController {
+class HotelTableViewController: UITableViewController, RakutenAPIControllerProtocol {
+
+    @IBOutlet var hotelTableView: UITableView!
+    
+    var api : RakutenAPIController?
+    var hotels = [Hotel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,45 +29,36 @@ class HotelTableViewController: UITableViewController {
         //
         // 近隣ホテル検索
         //
-        let longitude: Double! = NSUserDefaults.standardUserDefaults().doubleForKey("CURRENT_LONGITUDE")
-        let latitude: Double! = NSUserDefaults.standardUserDefaults().doubleForKey("CURRENT_LATITUDE")
-        let nearStation: String! = NSUserDefaults.standardUserDefaults().stringForKey("NEAR_STATION")
-        
-        NSLog("searching rakuten api...long: \(longitude), lat: \(latitude), nearStation: \(nearStation)")
-        
-        Alamofire.request(.GET, "https://app.rakuten.co.jp/services/api/Travel/SimpleHotelSearch/20131024", parameters: [
-                "applicationId": 1000220328079992423,
-                "format": "json",
-                "formatVersion": 2,
-                "longitude": longitude,
-                "latitude": latitude,
-                "searchRadius": 1,
-                "hits": 5,
-                "datumType": 1
-            ])
-            .responseJSON { (_, _, json, error) in
-                if(error != nil) {
-                    println("[ERROR] search rakuten api: \(error)")
-                } else {
-                    let data = JSON(json!)
-                    
-                    println(data)
-                    
-                    // ホテル一覧
-                    for (index: String, hotel: JSON) in data["hotels"] {
-                        let hotelInfo = hotel[0]["hotelBasicInfo"]
-                            
-                        println(hotelInfo)
-                        println(hotelInfo["hotelName"].stringValue)
-                        println(hotelInfo["roomImageUrl"].stringValue)
-                        println(hotelInfo["telephoneNo"].stringValue)
-                        println(hotelInfo["access"].stringValue)
-                        println(hotelInfo["longitude"].stringValue)
-                        println(hotelInfo["latitude"].stringValue)
-                    }
-                }
-            }
+        api = RakutenAPIController(delegate: self)
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        api!.searchHotels()
     }
+    
+    // RakutenApiControllerProtocol
+    func didReceiveRakutenAPIResults(data: JSON) {
+        dispatch_async(dispatch_get_main_queue(), {
+            for (index: String, hotel: JSON) in data["hotels"] {
+                let hotelInfo = hotel[0]["hotelBasicInfo"]
+                    
+                let name = hotelInfo["hotelName"].stringValue
+                let roomImageUrl = hotelInfo["roomImageUrl"].stringValue
+                let telephoneNo = hotelInfo["telephoneNo"].stringValue
+                
+                var hotel = Hotel(
+                    name: name,
+                    roomImageUrl: roomImageUrl,
+                    telephoneNo: telephoneNo
+                )
+                
+                println(hotel.name)
+                
+                self.hotels.append(hotel)
+            }
+            
+            self.hotelTableView!.reloadData()
+        })
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -80,18 +76,21 @@ class HotelTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return hotels.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("HotelTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        
+        println(cell)
 
         // Configure the cell...
+        let hotel = self.hotels[indexPath.row]
+        cell.textLabel?.text = hotel.name
+        //cell.imageView?.image = UIImage(named: "Blank52")
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
