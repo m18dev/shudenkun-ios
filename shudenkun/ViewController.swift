@@ -16,39 +16,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var shudenIntervalSlider: UISlider!
     @IBOutlet weak var shudenIntervalLabel: UILabel!
+    @IBOutlet weak var nearStationLabel: UILabel!
     
     @IBAction func shudenIntervalSliderValueChanged(sender: UISlider) {
         let val = Int(sender.value)
         shudenIntervalLabel.text = "\(val)"
-    }
-    
-    //
-    // 終電逃した時の宿検索
-    //
-    @IBAction func onMissShudenButtonClick(sender: AnyObject) {
-        Alamofire.request(.GET, "https://app.rakuten.co.jp/services/api/Travel/SimpleHotelSearch/20131024", parameters: [
-                "applicationId": 1000220328079992423,
-                "format": "json",
-                "formatVersion": 2,
-                "latitude": 128440.51,
-                "longitude": 503172.21,
-                "searchRadius": 1,
-                "hits": 5
-            ])
-            .validate(statusCode: 200..<300)
-            .responseJSON { (_, _, json, error) in
-                if(error != nil) {
-                    println("[ERROR] search rakuten api: \(error)")
-                } else {
-                    let data = JSON(json!)
-                    
-                    // ホテル一覧
-                    for (index: String, hotel: JSON) in data["hotels"] {
-                        println(index)
-                        println(hotel)
-                    }
-                }
-            }
     }
     
     @IBAction func onPushButtonClick(sender: AnyObject) {
@@ -96,7 +68,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func searchNearStation(longitude: CLLocationDegrees, latitude: CLLocationDegrees) {
         NSLog("searching near station...long: \(longitude), lat: \(latitude)")
         
-        Alamofire.request(.GET, "http://express.heartrails.com/api/json", parameters: [
+        Alamofire.request(.GET, "https://express.heartrails.com/api/json", parameters: [
                 "method": "getStations",
                 "x": longitude,
                 "y": latitude
@@ -113,6 +85,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     // 最寄駅
                     if let nearStation = data["response"]["station"][0]["name"].string {
                         println("[SUCCESS] nearStaion: \(nearStation)")
+                        
+                        // 現在地情報を保存
+                        let defaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject(nearStation, forKey:"NEAR_STATION")
+                        defaults.setDouble(longitude, forKey:"CURRENT_LONGITUDE")
+                        defaults.setDouble(latitude, forKey:"CURRENT_LATITUDE")
+                        defaults.synchronize()
+                        
+                        self.nearStationLabel.text = nearStation
+       
                         // 終電時間検索
                         self.searchShudenTime(nearStation)
                     } else {
@@ -130,7 +112,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         let userId = 5 // とりあえず決め打ち
         
-        Alamofire.request(.GET, "http://shudenkun.herokuapp.com/api/last_train.json", parameters: [
+        Alamofire.request(.GET, "https://shudenkun.herokuapp.com/api/last_train.json", parameters: [
                 "user_id": userId,
                 "depature": nearStation
             ])
